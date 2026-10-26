@@ -1,7 +1,7 @@
 # Deploy the static site already committed at the repository root.
-# GitHub Pages cannot be enabled by this token (Pages API returned 403).
-# The repository owner must set Settings > Pages > Source to "GitHub Actions"
-# before this workflow can publish https://dinguspingus84acl.github.io/knee180-funnel/
+# Direct Pages API enablement returned 403 for this token, so this workflow
+# asks configure-pages to enable a GitHub Actions source. If that is refused,
+# the owner must set Settings > Pages > Source to "GitHub Actions".
 name: Deploy static content to Pages
 
 on:
@@ -29,6 +29,10 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        with:
+          # The cloud-agent token cannot create the Pages site (API 403).
+          # This lets the workflow token enable Pages with a GitHub Actions source.
+          enablement: true
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
