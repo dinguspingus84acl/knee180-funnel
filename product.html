@@ -282,6 +282,10 @@ font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,A
     document.getElementById('subnote').style.display=sub?'block':'none';
   }
   document.querySelectorAll('.k180 input[type=radio]').forEach(function(i){i.addEventListener('change',render);});
+  /* Preselect bundle from pre-lander links: product.html?pack=1|3|5&sub=0|1#buy */
+  try{var q=new URLSearchParams(location.search),qp=q.get('pack'),qs=q.get('sub');
+    if(qp){var r=document.querySelector('input[name=pack][value="'+qp+'"]');if(r)r.checked=true;}
+    if(qs!==null){var t=document.querySelector('input[name=ptype][value="'+(qs==='0'?'once':'sub')+'"]');if(t)t.checked=true;}}catch(e){}
   render();
 })();
 </script>
